@@ -210,6 +210,19 @@ h6 {
   --background-color: rgba(255, 255, 255, 0);
 }
 
+.index-page .header .logo .sitename {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.index-page.past-hero .header .logo .sitename {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
 /* Index Page Header on Scroll
 ------------------------------*/
 .index-page.scrolled .header {

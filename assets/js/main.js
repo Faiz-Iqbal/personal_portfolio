@@ -19,8 +19,20 @@
     window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
   }
 
+  function togglePastHero() {
+    const selectBody = document.querySelector('body');
+    const heroSection = document.querySelector('#hero');
+    if (!heroSection || !selectBody.classList.contains('index-page')) return;
+
+    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+    window.scrollY > heroBottom ? selectBody.classList.add('past-hero') : selectBody.classList.remove('past-hero');
+  }
+
   document.addEventListener('scroll', toggleScrolled);
   window.addEventListener('load', toggleScrolled);
+  document.addEventListener('scroll', togglePastHero);
+  window.addEventListener('load', togglePastHero);
+  window.addEventListener('resize', togglePastHero);
 
   /**
    * Mobile nav toggle
