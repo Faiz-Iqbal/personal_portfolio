@@ -2393,6 +2393,18 @@ section,
   flex-shrink: 0;
 }
 
+.portfolio-open-project.disabled-link {
+
+    filter: grayscale(100%);
+
+    opacity: 0.5;
+
+    pointer-events: none;
+
+    cursor: not-allowed;
+
+}
+
 .portfolio-details .portfolio-content blockquote {
   background: var(--surface-color);
   border-radius: 12px;
