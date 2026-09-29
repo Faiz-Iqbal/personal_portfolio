@@ -10,6 +10,63 @@
   "use strict";
 
   /**
+   * Theme switcher. The head script restores the saved theme before first paint.
+   */
+  const themeRoot = document.documentElement;
+  const themeToggles = document.querySelectorAll('.theme-toggle');
+  const themeStorageKey = 'portfolio-theme';
+  const deviceTheme = window.matchMedia('(prefers-color-scheme: dark)');
+  let themePreference = null;
+
+  try {
+    const savedTheme = localStorage.getItem(themeStorageKey);
+    if (savedTheme === 'light' || savedTheme === 'dark') themePreference = savedTheme;
+  } catch {
+    // Follow the device setting when storage is unavailable.
+  }
+
+  function applyTheme(theme) {
+    const nextTheme = theme === 'light' || theme === 'dark'
+      ? theme
+      : (deviceTheme.matches ? 'dark' : 'light');
+    themeRoot.dataset.theme = nextTheme;
+    themeToggles.forEach(button => {
+      const label = nextTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+      button.setAttribute('aria-label', label);
+      button.setAttribute('title', label);
+    });
+  }
+
+  applyTheme(themePreference);
+
+  deviceTheme.addEventListener('change', () => {
+    if (themePreference === null) applyTheme(null);
+  });
+
+  themeToggles.forEach(button => {
+    button.addEventListener('click', () => {
+      const nextTheme = themeRoot.dataset.theme === 'light' ? 'dark' : 'light';
+      themePreference = nextTheme;
+      applyTheme(nextTheme);
+      try {
+        localStorage.setItem(themeStorageKey, nextTheme);
+      } catch {
+        // Switching still works when the browser does not allow storage.
+      }
+    });
+    button.hidden = false;
+  });
+
+  window.addEventListener('storage', event => {
+    if (event.key === themeStorageKey || event.key === null) {
+      themePreference = event.newValue === 'light' || event.newValue === 'dark'
+        ? event.newValue
+        : null;
+      applyTheme(themePreference);
+    }
+  });
+
+  /**
    * Apply .scrolled class to the body as the page is scrolled down
    */
   function toggleScrolled() {
