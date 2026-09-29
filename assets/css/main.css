@@ -13,6 +13,10 @@
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
 :root { 
+  color-scheme: dark;
+  --portfolio-surface-color: #0b0b0b;
+  --portfolio-heading-color: #ffffff;
+  --portfolio-text-color: rgba(255, 255, 255, 0.82);
   --background-color: #141414; /* Background color for the entire website, including individual sections */
   --default-color: #d9d9d9; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #ededed; /* Color for headings, subheadings and title throughout the website */
@@ -2004,7 +2008,7 @@ section,
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
-  background-color: #0b0b0b;
+  background-color: var(--portfolio-surface-color);
   border: 1px solid color-mix(in srgb, var(--accent-color), transparent 78%);
   border-radius: 16px;
   overflow: hidden;
@@ -2026,7 +2030,7 @@ section,
 }
 
 .portfolio .portfolio-card .portfolio-content {
-  background-color: #0b0b0b;
+  background-color: var(--portfolio-surface-color);
   padding: 20px;
   text-align: left;
 }
@@ -2045,7 +2049,7 @@ section,
 }
 
 .portfolio .portfolio-card .portfolio-content h4 {
-  color: #ffffff;
+  color: var(--portfolio-heading-color);
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 8px;
@@ -2053,7 +2057,7 @@ section,
 }
 
 .portfolio .portfolio-card .portfolio-content .project-description {
-  color: color-mix(in srgb, #ffffff, transparent 18%);
+  color: var(--portfolio-text-color);
   font-size: 14px;
   margin: 0;
   line-height: 1.55;
@@ -4236,4 +4240,155 @@ section,
 --------------------------------------------------------------*/
 .starter-section {
   /* Add your styles here */
+}
+
+/*--------------------------------------------------------------
+# Theme Switcher & Light Palette
+--------------------------------------------------------------*/
+.header .theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  margin-left: 20px;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--nav-color), transparent 65%);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--surface-color), transparent 15%);
+  color: var(--nav-color);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.header .theme-toggle[hidden] {
+  display: none;
+}
+
+.header .theme-toggle:hover {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+  background: var(--surface-color);
+}
+
+.header .theme-toggle:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 4px;
+}
+
+.theme-toggle .theme-icon-dark,
+:root[data-theme="light"] .theme-toggle .theme-icon-light {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .theme-icon-dark {
+  display: inline-block;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background-color: #f5f7f2;
+  --default-color: #202a23;
+  --heading-color: #17251c;
+  --accent-color: #456b39;
+  --surface-color: #ffffff;
+  --contrast-color: #ffffff;
+  --nav-color: #26352b;
+  --nav-hover-color: #456b39;
+  --nav-mobile-background-color: #ffffff;
+  --nav-dropdown-background-color: #ffffff;
+  --nav-dropdown-color: #26352b;
+  --nav-dropdown-hover-color: #456b39;
+  --portfolio-surface-color: #ffffff;
+  --portfolio-heading-color: #17251c;
+  --portfolio-text-color: #4b574e;
+}
+
+:root[data-theme="light"] .light-background {
+  --background-color: #eaf0e5;
+  --surface-color: #ffffff;
+}
+
+:root[data-theme="light"] .dark-background {
+  --background-color: #f5f7f2;
+  --default-color: #202a23;
+  --heading-color: #17251c;
+  --surface-color: #ffffff;
+}
+
+:root[data-theme="light"] .header {
+  --heading-color: #17251c;
+  --background-color: rgba(245, 247, 242, 0.96);
+}
+
+:root[data-theme="light"] .hero::before {
+  background: color-mix(in srgb, #060606, transparent 55%);
+}
+
+:root[data-theme="light"] .hero h2 {
+  color: #ffffff;
+}
+
+:root[data-theme="light"] .hero .social-links a {
+  color: #ffffff;
+}
+
+:root[data-theme="light"] .hero p span {
+  color: #a8cc98;
+  border-bottom-color: #a8cc98;
+}
+
+:root[data-theme="light"] .portfolio .portfolio-card {
+  box-shadow: 0 8px 24px rgba(23, 37, 28, 0.07);
+}
+
+:root[data-theme="light"] .portfolio .portfolio-card:hover {
+  box-shadow: 0 12px 30px rgba(23, 37, 28, 0.12);
+}
+
+/* Keep secondary text readable on the light surfaces. */
+:root[data-theme="light"] .about .detail-item .detail-content span,
+:root[data-theme="light"] .resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .education-meta .degree-level {
+  color: #59645b;
+}
+
+@media (max-width: 1199px) {
+  .header .theme-toggle {
+    order: 2;
+    margin: 0 12px;
+  }
+
+  .header .logo {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .header .logo h1 {
+    font-size: clamp(16px, 3vw, 26px);
+    line-height: 1.2;
+  }
+
+  /* Keep the theme button accessible while the mobile menu is open. */
+  .mobile-nav-active .header .theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 58px;
+    margin: 0;
+    z-index: 9999;
+  }
+}
+
+@media (max-width: 575px) {
+  .header .btn-getstarted {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header .theme-toggle {
+    transition: none;
+  }
 }

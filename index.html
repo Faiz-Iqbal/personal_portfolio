@@ -4,6 +4,20 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <!-- Restore the saved theme before styles load to avoid a color flash. -->
+  <script>
+    (function () {
+      var theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      try {
+        var savedTheme = localStorage.getItem('portfolio-theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') theme = savedTheme;
+      } catch (error) {
+        // Use the default theme when storage is unavailable.
+      }
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
   <title>Mohammed Faiz Iqbal</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
@@ -68,6 +82,11 @@
       </nav>
 
       <a class="btn-getstarted" href="#about">Explore</a>
+
+      <button type="button" class="theme-toggle" aria-label="Switch to light mode" title="Switch to light mode" hidden>
+        <i class="bi bi-sun theme-icon-light" aria-hidden="true"></i>
+        <i class="bi bi-moon-stars theme-icon-dark" aria-hidden="true"></i>
+      </button>
 
     </div>
   </header>
